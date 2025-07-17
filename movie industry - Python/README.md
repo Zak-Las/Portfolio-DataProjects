@@ -134,9 +134,21 @@ My choise of making the cutoff at 50 votes was made to show a concrete example w
 
 To confirm the hypothesis above, I genererate a table of correlations between all the columns. To this end, I use the method `.corr(method = 'spearman')` which outputs the values below:
 
-![CorrTable](figs/corr_table.png)
+<p align="center">
+  <img alt="CorrTable" src="figs/corr_table.png" width="70%">
+</p>
 
-While the correlations between the columns `profit` and `vote_average` seems to be low, it is still on the positive side. One can generate a scatter plot showing all the instances and who they are positioned in terms of average rating and recorded profits.
+For better visibility, the table above the shown as a MatrixPlot.
+
+<p align="center">
+  <img alt="CorrTable" src="figs/corr_table_MatrixPlot.png" width="70%">
+</p>
+
+<!-- ![CorrTable](figs/corr_table.png) -->
+
+Interestingly, only the pair `vote_average` - `popularity` shows a negative correlation. Nonetheless, it is very weak (below -0.05). On the other hand, all the other permutations are positive. The darker the shade, the stronger are the correlations.
+
+While the correlations between the columns `profit` and `vote_average` seems to be low, it is still on the positive side. One can generate a scatter plot showing all the movie titles in the dataset and how they are positioned in terms of average rating and recorded profits.
 
 ![Rating_vs_Profits](figs/Rating_V_Profit_scatter.png)
 
