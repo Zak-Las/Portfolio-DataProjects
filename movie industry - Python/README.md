@@ -13,14 +13,14 @@
 
 The database **`imdb_movies.csv`** was obtained from Kaggle. Creadit to [HARSHIT SHANKHDHAR](https://www.kaggle.com/datasets/harshitshankhdhar/imdb-dataset-of-top-1000-movies-and-tv-shows).
 
-### Research Questions:
+### - Research Questions:
 
 1. Which genres are the most common?
 2. Which genres rank top in terms of investement and return?
 3. Which genres rank top in terms of ticket sales?
 4. Which genres rank top in terms of high ratings (voting avgerage above 8)?
 
-### Research Hypotheses:
+### - Research Hypotheses:
 
 1. The best movies according to the rating votes return high profits.
 2. The top movies in terms of ticket sales return high profits.
@@ -36,11 +36,18 @@ genres_count = pd.DataFrame(movies_genre.groupby('genres_split').original_title.
 
 Then, I generate a pie chart showing each genre and its percentage with respect to the entire dataset.
 
-![GenreCountPie](figs/movie_count_per_genre_pie.png)
+<!-- ![GenreCountPie](figs/movie_count_per_genre_pie.png) -->
+
+<p align="center">
+  <img alt="GenreCountPie" src="figs/movie_count_per_genre_pie.png" width="65%">
+</p>
 
 Also, one can generate a horizontal bar chart to see the count for each genre.
 
-![GenreCountHBar](figs/movie_count_per_genre_hbar.png)
+<!-- ![GenreCountHBar](figs/movie_count_per_genre_hbar.png) -->
+<p align="center">
+  <img alt="GenreCountHBar" src="figs/movie_count_per_genre_hbar.png" width="65%">
+</p>
 
 **Conclusion of Question 1:** From the plots above, one can see that the top 3 genres are `Drama`, `Comedy`, and `Thriller`, respectively. These three genres count more than 40% of all movies.
 
@@ -77,7 +84,10 @@ Basically, the profits are computed by subtracting the budget from the revenue o
 
 Now, I generate horizontal bar chart showing the new calculated values (profits) for each movie genre.
 
-![ProfitsHBar](figs/Profits_V_Gerne_hbar.png)
+<p align="center">
+  <img alt="ProfitsHBar" src="figs/Profits_V_Gerne_hbar.png" width="65%">
+</p>
+<!-- ![ProfitsHBar](figs/Profits_V_Gerne_hbar.png) -->
 
 **Conclusion of Question 3:** The movie genre `Adventure` ranks top in terms of average profits. This observation aligns logically with the answer of **question 2**. In shot, movies of the `Adventure` genre tend to have the biggest budgest and yeild the highest returns which translate to the largest average profits.
 
@@ -85,7 +95,11 @@ Now, I generate horizontal bar chart showing the new calculated values (profits)
 
 To answer this question, I generate a plot showing the average popularity per movie genre.
 
-![PopularityHBar](figs/Popularity_V_Gerne_hbar.png)
+<p align="center">
+  <img alt="PopularityHBar" src="figs/Popularity_V_Gerne_hbar.png" width="65%">
+</p>
+
+<!-- ![PopularityHBar](figs/Popularity_V_Gerne_hbar.png) -->
 
 **Conclusion of Question 4:** The movie genre `Adventure` ranks top with respect to the `popularity` metric.
 
@@ -138,7 +152,11 @@ Regarding this hypothesis, I am more optimistic to find stronger evidence of its
 
 Now, I generate a scatter plot showing the populatirity and profits for each movie in the dataset.
 
-![Popularity_V_Profit](figs/Popularity_V_Profit_scatter.png)
+<p align="center">
+  <img alt="Popularity_V_Profit" src="figs/Popularity_V_Profit_scatter.png" width="65%">
+</p>
+
+<!-- ![Popularity_V_Profit](figs/Popularity_V_Profit_scatter.png) -->
 
 **Conclusion of Hypothesis 2:** The figure above illustrates a positive correlation between profits and the popularity of the movies. This correlation is much stronger than the one observed between the `profit` and `vote_average` columns.
 
@@ -180,4 +198,4 @@ The genres have been ordered with respect to their average profits from 2015. Th
 - The genres that are depicted in the top 1/3 of the figure tend to overperform. Between 2010 and 2015, these genres consistently recorded profits above 50 million USD.
 - The genres that are depicted in the bottom 1/3 of the figure tend to underperform. Across all the available data, with a few exceptions, these genres have been either booking losses or small profits (below 50 million USD).
 
-**Conclusion of Hypothesis 3:** The figure above shows that the performance of different movie genres fluctuates slowly over the decades of recorded data. Indeed, some genres seem to underperform the rest. 
+**Conclusion of Hypothesis 4:** The figure above shows that the performance of different movie genres fluctuates slowly over the decades of recorded data. Indeed, some genres seem to underperform the rest. 
