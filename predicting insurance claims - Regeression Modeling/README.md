@@ -7,6 +7,11 @@ Machine learning enjoys significant popularity within the insurance industry, kn
 ## Skills Used
 ### *pandas, numpy, seaborn, matplotlip, scipy, statsmodels, scikit-learn, regeression modeling*
 
+## Notebooks
+- [predicting_claims_statsmodels.ipynb](https://github.com/Zak-Las/Portfolio-DataProjects/blob/main/predicting%20insurance%20claims%20-%20Regeression%20Modeling/predicting_claims_scikit-learn.ipynb): Here I use statsmodels  to identify from the available data which column can be the best predictor for cutomer claims. 
+- [predicting_claims_scikit-learn.ipynb](https://github.com/Zak-Las/Portfolio-DataProjects/blob/main/predicting%20insurance%20claims%20-%20Regeression%20Modeling/predicting_claims_scikit-learn.ipynb): Similar but more detailed than the notebook above. Here I use scikit-learn to predict whether a customer will make a claim on their insurance during the policy period. 
+
+
 # Project/Goals
 The data scientist team at On the Road car insurance was tasked with analyzing the company's customer data to pinpoint the most influential feature for creating a highly accurate logistic regression model. The goal of the project is to identify the single feature of the data that is the best predictor of whether a customer will put in a claim, repesented by the value of 1 in the target variable: 'outcome'.
 
