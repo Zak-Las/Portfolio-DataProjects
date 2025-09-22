@@ -15,6 +15,9 @@ env/
 *.csv
 *.xlsx
 *.parquet
+*.pkl
+*.h5
+*.zip
 data/
 
 # Secrets and environment variables
