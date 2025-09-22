@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Data files - You should never commit large raw data to Git!
+*.csv
+*.xlsx
+*.parquet
+data/
+
+# Secrets and environment variables
+.env
+credentials.json
+
+# IDE and OS-specific files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
