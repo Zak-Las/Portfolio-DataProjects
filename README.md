@@ -1,37 +1,59 @@
-# Portfolio - DataProjects
-This repo will be used to host my data-related projects using SQL and Python:
+# Data Science Project Portfolio
 
-- [movie industry - Python](https://github.com/Zak-Las/Portfolio-DataProjects/tree/main/movie%20industry%20-%20Python): Here I clean and perform an exploratory data analysis on a dataset of movies from imdb.
-- [world life expectancy - PostgreSQL](https://github.com/Zak-Las/Portfolio-DataProjects/tree/main/world%20life%20expectancy%20-%20PostgreSQL): Here I clean and perform an exploratory data analysis on a dataset of the world life expectancy.
-- [automated data cleaning - MySQL](https://github.com/Zak-Las/Portfolio-DataProjects/tree/main/automated%20data%20cleaning%20-%20MySQL): Here I use Stored Procedures, Triggers, and Events to automatically clean raw data.
-- [regeression modeling of insurance claims - Python](https://github.com/Zak-Las/Portfolio-DataProjects/tree/main/predicting%20insurance%20claims%20-%20Regeression%20Modeling): Here I create a model using two different tools/packages (statsmodels + scikit-learn) to predict whether a customer will make a claim on their insurance during the policy period. 
+Welcome to my portfolio of data science projects. This repository showcases my skills in data cleaning, exploratory data analysis, machine learning, and data engineering using Python, SQL, and various data science libraries.
 
+## Projects
 
-# Installation
+Here's a summary of the projects you'll find in this repository:
 
-To set up the required Python environment for this project, follow these steps:
+-   **[Movie Industry Analysis (Python)](./movie%20industry%20-%20Python/)**: An in-depth exploratory data analysis of an IMDb movie dataset. This project involves data cleaning, visualization, and uncovering insights into the factors that drive movie success.
 
-1. **Install [Anaconda](https://www.anaconda.com/products/distribution) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html)** if you don't already have it.
+-   **[World Life Expectancy (PostgreSQL)](./world%20life%20expectancy%20-%20PostgreSQL/)**: A SQL-based project focused on data cleaning and exploratory analysis of global life expectancy data.
 
-2. **Create a new conda environment from `environment.yml`:**
-	```bash
-	conda env create -f environment.yml
-	conda activate ZakLas
-	```
+-   **[Automated Data Cleaning (MySQL)](./automated%20data%20cleaning%20-%20MySQL/)**: Demonstrates the use of Stored Procedures, Triggers, and Events in MySQL to create an automated data cleaning pipeline for household income data.
 
+-   **[Insurance Claim Prediction (Regression Modeling)](./predicting%20insurance%20claims%20-%20Regeression%20Modeling/)**: A machine learning project where I build and compare regression models using `statsmodels` and `scikit-learn` to predict insurance claims.
 
-# Docker Option (Recommended for Reproducibility)
+## Getting Started
 
-Alternatively, you can run this project in a Docker container using the provided `Dockerfile` and `environment.yml`.
+This entire portfolio is containerized, allowing for a fully reproducible environment. You can explore the projects using either VS Code Dev Containers (recommended for the best experience) or by manually building and running the Docker image.
 
-1. **Build the Docker image:**
-	```bash
-	docker build -t zaklas-ds-project .
-	```
+---
 
-2. **Run the container:**
-	```bash
-	docker run -it --rm zaklas-ds-project
-	```
+### Option 1: Quick Start with VS Code & Dev Containers (Recommended)
 
-This will launch a shell inside the container with the full conda environment ready to use.
+This is the easiest and most integrated way to explore the projects.
+
+**Prerequisites:**
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) for VS Code.
+
+**Steps:**
+1.  Clone this repository to your local machine.
+2.  Open the cloned repository folder in VS Code.
+3.  You will see a pop-up in the bottom-right corner asking to "Reopen in Container". Click it.
+4.  VS Code will build the Docker container and configure the environment. This might take a few minutes on the first run.
+5.  Once finished, you can directly open any of the `.ipynb` notebook files. VS Code will automatically use the Python environment from the container, and you can run the cells interactively within the editor.
+
+---
+
+### Option 2: Manual Setup with Docker
+
+If you prefer not to use the VS Code Dev Container, you can still run the environment manually.
+
+**Prerequisites:**
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+**Steps:**
+1.  Clone this repository to your local machine.
+2.  Open a terminal and navigate to the root directory of the repository.
+3.  Build the Docker image:
+    ```bash
+    docker build -t zak-portfolio .
+    ```
+4.  Run the container, mapping the port and mounting the project directory:
+    ```bash
+    docker run --rm -p 8888:8888 -v "${PWD}":/workspace zak-portfolio
+    ```
+5.  You can then open the folder in VS Code and the Jupyter extension will be able to connect to the kernel in the running container, or you can access Jupyter Lab at `http://localhost:8888`.
