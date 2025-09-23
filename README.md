@@ -6,6 +6,8 @@ Welcome to my portfolio of data science projects. This repository showcases my s
 
 Here's a summary of the projects you'll find in this repository, with machine learning projects listed first to highlight my skills in this area:
 
+-   **[E-Commerce Clothing Classifier (PyTorch)](./ecommerce_clothing_classifier/)**: A deep learning project that builds a Convolutional Neural Network (CNN) from scratch to classify garment images from the FashionMNIST dataset.
+
 -   **[Insurance Claim Prediction (Regression Modeling)](./insurance_claim_prediction/)**: A machine learning project where I build and compare regression models using `statsmodels` and `scikit-learn` to predict insurance claims.
 
 -   **[Taxi Route Optimization (Reinforcement Learning)](./taxi_route_optimization/)**: A reinforcement learning project that trains an agent to solve the "Taxi-v3" problem from the `gymnasium` library. This project demonstrates the use of Q-learning to find an optimal route in a simulated environment.
