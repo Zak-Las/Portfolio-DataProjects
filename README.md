@@ -4,15 +4,17 @@ Welcome to my portfolio of data science projects. This repository showcases my s
 
 ## Projects
 
-Here's a summary of the projects you'll find in this repository:
+Here's a summary of the projects you'll find in this repository, with machine learning projects listed first to highlight my skills in this area:
 
--   **[Movie Industry Analysis (Python)](./movie%20industry%20-%20Python/)**: An in-depth exploratory data analysis of an IMDb movie dataset. This project involves data cleaning, visualization, and uncovering insights into the factors that drive movie success.
+-   **[Insurance Claim Prediction (Regression Modeling)](./insurance_claim_prediction/)**: A machine learning project where I build and compare regression models using `statsmodels` and `scikit-learn` to predict insurance claims.
 
--   **[World Life Expectancy (PostgreSQL)](./world%20life%20expectancy%20-%20PostgreSQL/)**: A SQL-based project focused on data cleaning and exploratory analysis of global life expectancy data.
+-   **[Taxi Route Optimization (Reinforcement Learning)](./taxi_route_optimization/)**: A reinforcement learning project that trains an agent to solve the "Taxi-v3" problem from the `gymnasium` library. This project demonstrates the use of Q-learning to find an optimal route in a simulated environment.
 
--   **[Automated Data Cleaning (MySQL)](./automated%20data%20cleaning%20-%20MySQL/)**: Demonstrates the use of Stored Procedures, Triggers, and Events in MySQL to create an automated data cleaning pipeline for household income data.
+-   **[Movie Industry Analysis (Python)](./movie_industry_analysis/)**: An in-depth exploratory data analysis of an IMDb movie dataset. This project involves data cleaning, visualization, and uncovering insights into the factors that drive movie success.
 
--   **[Insurance Claim Prediction (Regression Modeling)](./predicting%20insurance%20claims%20-%20Regeression%20Modeling/)**: A machine learning project where I build and compare regression models using `statsmodels` and `scikit-learn` to predict insurance claims.
+-   **[World Life Expectancy (PostgreSQL)](./world_life_expectancy_sql/)**: A SQL-based project focused on data cleaning and exploratory analysis of global life expectancy data.
+
+-   **[Automated Data Cleaning (MySQL)](./automated_data_cleaning_sql/)**: Demonstrates the use of Stored Procedures, Triggers, and Events in MySQL to create an automated data cleaning pipeline for household income data.
 
 ## Getting Started
 

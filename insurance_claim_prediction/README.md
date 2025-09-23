@@ -8,8 +8,8 @@ Machine learning enjoys significant popularity within the insurance industry, kn
 ### *pandas, numpy, seaborn, matplotlip, scipy, statsmodels, scikit-learn, regeression modeling*
 
 ## Notebooks
-- [predicting_claims_statsmodels.ipynb](https://github.com/Zak-Las/Portfolio-DataProjects/blob/main/predicting%20insurance%20claims%20-%20Regeression%20Modeling/predicting_claims_scikit-learn.ipynb): Here I use statsmodels  to identify from the available data which column can be the best predictor for cutomer claims. 
-- [predicting_claims_scikit-learn.ipynb](https://github.com/Zak-Las/Portfolio-DataProjects/blob/main/predicting%20insurance%20claims%20-%20Regeression%20Modeling/predicting_claims_scikit-learn.ipynb): Similar but more detailed than the notebook above. Here I use scikit-learn to predict whether a customer will make a claim on their insurance during the policy period. 
+- [predicting_claims_statsmodels.ipynb](https://github.com/Zak-Las/Portfolio-DataProjects/blob/main/insurance_claim_prediction/predicting_claims_statsmodels.ipynb): Here I use statsmodels  to identify from the available data which column can be the best predictor for cutomer claims. 
+- [predicting_claims_scikit-learn.ipynb](https://github.com/Zak-Las/Portfolio-DataProjects/blob/main/insurance_claim_prediction/predicting_claims_scikit-learn.ipynb): Similar but more detailed than the notebook above. Here I use scikit-learn to predict whether a customer will make a claim on their insurance during the policy period. 
 
 
 # Project/Goals
