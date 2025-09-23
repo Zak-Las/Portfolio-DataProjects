@@ -6,13 +6,13 @@ Welcome to my portfolio of data science projects. This repository showcases my s
 
 Here's a summary of the projects you'll find in this repository:
 
--   **[Movie Industry Analysis (Python)](./movie%20industry%20-%20Python/)**: An in-depth exploratory data analysis of an IMDb movie dataset. This project involves data cleaning, visualization, and uncovering insights into the factors that drive movie success.
+-   **[Movie Industry Analysis (Python)](./movie_industry_analysis/)**: An in-depth exploratory data analysis of an IMDb movie dataset. This project involves data cleaning, visualization, and uncovering insights into the factors that drive movie success.
 
--   **[World Life Expectancy (PostgreSQL)](./world%20life%20expectancy%20-%20PostgreSQL/)**: A SQL-based project focused on data cleaning and exploratory analysis of global life expectancy data.
+-   **[World Life Expectancy (PostgreSQL)](./world_life_expectancy_sql/)**: A SQL-based project focused on data cleaning and exploratory analysis of global life expectancy data.
 
--   **[Automated Data Cleaning (MySQL)](./automated%20data%20cleaning%20-%20MySQL/)**: Demonstrates the use of Stored Procedures, Triggers, and Events in MySQL to create an automated data cleaning pipeline for household income data.
+-   **[Automated Data Cleaning (MySQL)](./automated_data_cleaning_sql/)**: Demonstrates the use of Stored Procedures, Triggers, and Events in MySQL to create an automated data cleaning pipeline for household income data.
 
--   **[Insurance Claim Prediction (Regression Modeling)](./predicting%20insurance%20claims%20-%20Regeression%20Modeling/)**: A machine learning project where I build and compare regression models using `statsmodels` and `scikit-learn` to predict insurance claims.
+-   **[Insurance Claim Prediction (Regression Modeling)](./insurance_claim_prediction/)**: A machine learning project where I build and compare regression models using `statsmodels` and `scikit-learn` to predict insurance claims.
 
 ## Getting Started
 
