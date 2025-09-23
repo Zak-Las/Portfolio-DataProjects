@@ -1,0 +1,21 @@
+{
+	"name": "Data Science Portfolio",
+	"build": {
+		"dockerfile": "../Dockerfile",
+		"context": "..",
+		"args": {
+			"CONDA_ENV_NAME": "datascience_env"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-toolsai.jupyter"
+			]
+		}
+	},
+	"forwardPorts": [8888],
+	"postCreateCommand": "echo 'Container created. Open a terminal and run your notebooks.'",
+	"remoteUser": "root"
+}

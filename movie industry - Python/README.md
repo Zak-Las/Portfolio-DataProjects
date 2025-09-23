@@ -1,213 +1,96 @@
-# Project Summary
+# Movie Industry Analysis: An Exploratory Data Analysis
 
-*A hypothetical company has announced its intention to enter the movie industry by establishing a new studio. While the company currently lacks experience in this field, my objective is to gather, clean, and analyze movie-related data from a variety of sources in order to provide informed recommendations that can support their success in this new venture.*
+## Project Overview
 
+A hypothetical company is venturing into the movie industry and needs data-driven guidance to inform its strategy. This project involves a comprehensive exploratory data analysis (EDA) of an IMDb movie dataset to uncover insights into what makes a movie successful. The goal is to provide actionable recommendations to this new movie studio.
 
-## Skills Used
-### *pandas, numpy, seaborn, matplotlip, datetime*
+### Key Objectives:
+-   Identify the most common and profitable movie genres.
+-   Analyze the relationship between a movie's budget, revenue, and profit.
+-   Investigate the correlation between audience ratings, popularity, and financial success.
+-   Determine if certain genres consistently outperform others over time.
 
+### Skills & Tools
+-   **Data Manipulation:** `pandas`, `numpy`
+-   **Data Visualization:** `matplotlib`, `seaborn`
+-   **Core Python:** `datetime`
 
-## Exploratory Data Analysis
+---
 
-### - Dataset <br />
+## Data Cleaning & Preparation
 
-The database **`imdb_movies.csv`** was obtained from Kaggle. Creadit to [HARSHIT SHANKHDHAR](https://www.kaggle.com/datasets/harshitshankhdhar/imdb-dataset-of-top-1000-movies-and-tv-shows).
+The initial dataset, `imdb_movies.csv` from Kaggle, required several cleaning and transformation steps:
+1.  **Handling Missing Values:** Rows with missing `budget` or `revenue` data were dropped to ensure the integrity of financial calculations.
+2.  **Data Type Conversion:** `budget` and `revenue` columns were converted to numeric types.
+3.  **Feature Engineering:**
+    -   A `profit` column was created (`revenue` - `budget`).
+    -   The `genres` column, which contained multiple genres in a single string, was split to analyze each genre individually.
+4.  **Outlier Removal:** Initial plots revealed movies with zero budget or revenue, which were treated as data errors and removed from the dataset to avoid skewing the analysis.
 
-### - Research Questions:
+---
 
-1. Which genres are the most common?
-2. Which genres rank top in terms of investement and return?
-3. Which genres rank top in terms of ticket sales?
-4. Which genres rank top in terms of high ratings (voting avgerage above 8)?
+## Exploratory Data Analysis & Findings
 
-### - Research Hypotheses:
+### Q1: Which movie genres are the most common?
 
-1. The best movies according to the rating votes return high profits.
-2. The top movies in terms of ticket sales return high profits.
-3. The movies with the biggest budgets tend to generate high revenue and profit.
-4. The movies with the biggest budgets tend to rank high on popularity.
-
-## Question 1: Which genres are the most common?
-
-To answer this question, I create a dataframe where I group by the genre of each movie and order to the output by the unique count of each movie title.
-```
-genres_count = pd.DataFrame(movies_genre.groupby('genres_split').original_title.nunique()).sort_values('original_title',ascending = True)
-```
-
-Then, I generate a pie chart showing each genre and its percentage with respect to the entire dataset.
-
-<!-- ![GenreCountPie](figs/movie_count_per_genre_pie.png) -->
+By grouping the data by genre, it's clear that a few genres dominate the landscape.
 
 <p align="center">
-  <img alt="GenreCountPie" src="figs/movie_count_per_genre_pie.png" width="65%">
+  <img alt="Genre Count Bar Chart" src="figs/movie_count_per_genre_hbar.png" width="65%">
 </p>
 
-Also, one can generate a horizontal bar chart to see the count for each genre.
+**Finding:** `Drama`, `Comedy`, and `Thriller` are the three most frequently produced movie genres, accounting for over 40% of the films in this dataset.
 
-<!-- ![GenreCountHBar](figs/movie_count_per_genre_hbar.png) -->
-<p align="center">
-  <img alt="GenreCountHBar" src="figs/movie_count_per_genre_hbar.png" width="65%">
-</p>
+### Q2: Which genres are the most profitable and have the highest investment?
 
-**Conclusion of Question 1:** From the plots above, one can see that the top 3 genres are `Drama`, `Comedy`, and `Thriller`, respectively. These three genres count more than 40% of all movies.
-
-## Question 2: Which genres rank top in terms of investement and return?
-
-To answer this question, I create a new datafram where I group the data by the genre (similar to the way I answered question 1). However, this time, I compute the `.mean()` for the remainig columns. Of course, the columns that contain string values cannot be included in the calculation of the mean.
-
-Now, I generate a horizontal bar chart that depicts both the average budget and revenue of each movie genre. In the figure below, the genres are sorted by the revenue in a descending order from top to bottom.
-
+Analyzing the average budget, revenue, and profit per genre reveals a clear winner.
 
 <p align="center">
-  <img alt="RevenueBudgetHBar" src="figs/Revenue_Budget_V_Gerne_hbar.png" width="45%">
-&nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="BudgetRevenueHBar" src="figs/Budget_Revenue_V_Gerne_hbar.png" width="45%">
+  <img alt="Profits by Genre" src="figs/Profits_V_Gerne_hbar.png" width="65%">
 </p>
 
+**Finding:** The `Adventure` genre consistently ranks highest in terms of average budget, revenue, and, consequently, profit. This suggests that while adventure films are expensive to make, they have the potential for the highest returns.
 
-Also, for completeness, I generate the same figure as above, but this time I sort the different gernes by their budget in a descending order as well.
+### Q3: What is the relationship between budget, popularity, ratings, and profit?
 
-<!-- ![RevenueBudgetHBar](figs/Revenue_Budget_V_Gerne_hbar.png) -->
-<!-- ![BudgetRevenueHBar](figs/Budget_Revenue_V_Gerne_hbar.png) -->
-
-**Conclusion of Question 2:** The movie genre `Adventure` ranks top with respect to both metrics: revenue and budjet. 
-
-## Question 3: Which genres rank top in terms of profts?
-
-To answer this question, I append to the table a new column. Namely, I will calculate the profits earned by each movie. This can be implemented by running the line of code below:
-
-```
-movies['profit'] = movies['revenue'] - movies['budget']
-```
-
-Basically, the profits are computed by subtracting the budget from the revenue of each movie. This calculation can done at the fine level or could be coarse-grained by grouping over the movie genre and averaving both the budget and revenue of each movie each genre group. 
-
-Now, I generate horizontal bar chart showing the new calculated values (profits) for each movie genre.
+To understand the drivers of financial success, I examined the correlations between several key metrics.
 
 <p align="center">
-  <img alt="ProfitsHBar" src="figs/Profits_V_Gerne_hbar.png" width="65%">
+  <img alt="Correlation Matrix" src="figs/corr_table_MatrixPlot.png" width="70%">
 </p>
-<!-- ![ProfitsHBar](figs/Profits_V_Gerne_hbar.png) -->
 
-**Conclusion of Question 3:** The movie genre `Adventure` ranks top in terms of average profits. This observation aligns logically with the answer of **question 2**. In shot, movies of the `Adventure` genre tend to have the biggest budgest and yeild the highest returns which translate to the largest average profits.
+**Findings:**
+-   **Profit and Revenue:** There is a very strong positive correlation (0.84) between a movie's revenue and its profit, which is expected.
+-   **Profit and Budget:** A moderate positive correlation (0.33) exists between budget and profit. Higher budgets don't guarantee higher profits, but they are related.
+-   **Profit and Popularity:** Popularity has a stronger correlation with profit than budget does, indicating its importance in driving financial success.
+-   **Profit and Ratings (`vote_average`):** The correlation between audience rating and profit is weak but positive (0.19). A good movie doesn't always mean a profitable one, but it helps.
 
-## Question 4: Which genre ranks top in terms of popularity?
+The scatter plot below visualizes the weak but positive trend between a movie's rating and its profit.
 
-To answer this question, I generate a plot showing the average popularity per movie genre.
+![Rating vs. Profit Scatter Plot](figs/Rating_V_Profit_scatter.png)
+
+### Q4: Do some genres consistently underperform?
+
+By plotting the average profit for each genre over the years, we can identify long-term performance trends. The heatmap below shows average profit by genre and year (Green for profit, Red for loss).
 
 <p align="center">
-  <img alt="PopularityHBar" src="figs/Popularity_V_Gerne_hbar.png" width="65%">
+  <img alt="Genre Profitability Heatmap" src="figs/Genre_V_Profit_V_Year_HeatMap_bis.png" width="45%">
 </p>
 
-<!-- ![PopularityHBar](figs/Popularity_V_Gerne_hbar.png) -->
+**Finding:** Yes, performance trends are visible over decades. Genres in the top third of the plot (like `Adventure`, `Animation`, `Fantasy`) have been consistently profitable, especially between 2010 and 2015. Conversely, genres in the bottom third (like `Horror`, `Thriller`) have frequently booked losses or only marginal profits.
 
-**Conclusion of Question 4:** The movie genre `Adventure` ranks top with respect to the `popularity` metric.
+---
 
-## Question 5: Which genre ranks top in terms of rating (including only movies with average rating ≥ 8/10)?
+## Recommendations for the New Studio
 
-The rating of each movie takes place by recording individual votes with a score between between 0 and 10 (10 is the best). Then all the votes are averaged out into a final reading. This is done for each movie. Then, because I grouping the data by genre, a second average is computed across each genre. 
+Based on this analysis, here are my recommendations for the new movie studio:
 
-To answer **question 5**, I will take two paths. The average In the fist path, I will take into account all the available values in the dataset. In the second path, I will filter out all movies that have less than 50 votes. The movies low `vote_count` might stand out as outliers. My worry here is that the order of genres will be different depending on the low `vote_count` instances being include or excluded.
+1.  **Focus on High-Performing Genres:** Prioritize investment in `Adventure`, `Animation`, and `Fantasy` films. These genres have demonstrated the highest potential for large profits, despite requiring significant initial budgets.
 
-I will add another condition to filter the data set. Namely, I will exclude all movies that have an average rating below 8, regardless of their `cote_count`.
+2.  **Balance the Portfolio with "Safer" Bets:** While `Drama` and `Comedy` are the most common genres, their profitability is moderate. The studio could produce these as lower-budget films to balance the high-risk, high-reward adventure movies.
 
-First, I take into account all the available data and generate a chart showing the average rating per movie genre.
+3.  **Marketing is Key:** The analysis shows that `popularity` is a strong indicator of profit. The studio should invest heavily in marketing and building buzz to maximize a film's financial success.
 
+4.  **Avoid Consistently Underperforming Genres:** Be cautious when considering genres like `Horror` or `Thriller`. While they have a lower barrier to entry (lower budgets), they have historically underperformed in terms of profitability. A strong, unique concept would be required to succeed in these areas.
 
-
-<p align="center">
-  <img alt="Rating0HBar" src="figs/Rating_0_V_Gerne_hbar.png" width="45%">
-&nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="Rating50HBar" src="figs/Rating_50_V_Gerne_hbar.png" width="45%">
-</p>
-
-
-Also, I generate the same chart with the additional constraint filtring out all the instances where `vote_count` is below 50.
-
-
-**Conclusion of Question 5:** The two charts illustrated above show a different order of movie genres. This confirms my initial suspicion. When all instances are included the top 3 genres read `Mystry`, `Music`, and `Documentary`. However, when only the instances with `vote_count` at or above 50 are included, the top 3 genres seem to become `Documentary`, `Crime`, and `Adventure`. The second order makes more sense. 
-
-My choise of making the cutoff at 50 votes was made to show a concrete example where data might be insufficiently large. Identifying the cuttoff with a more rigourous method will be needed for deeper analysis. Alternatively, when computing the average rating per gernre, one could use the `vote_count` as wheight for the rating of each movie title.
-
-
-## Hypothesis 1: The best movies according to the rating votes return high profits.
-
-To confirm the hypothesis above, I genererate a table of correlations between all the columns. To this end, I use the method `.corr(method = 'spearman')` which outputs the values below:
-
-<p align="center">
-  <img alt="CorrTable" src="figs/corr_table.png" width="70%">
-</p>
-
-For better visibility, the table above the shown as a MatrixPlot.
-
-<p align="center">
-  <img alt="CorrTable" src="figs/corr_table_MatrixPlot.png" width="70%">
-</p>
-
-<!-- ![CorrTable](figs/corr_table.png) -->
-
-Interestingly, only the pair `vote_average` - `popularity` shows a negative correlation. Nonetheless, it is very weak (below -0.05). On the other hand, all the other permutations are positive. The darker the shade, the stronger are the correlations.
-
-While the correlations between the columns `profit` and `vote_average` seems to be low, it is still on the positive side. One can generate a scatter plot showing all the movie titles in the dataset and how they are positioned in terms of average rating and recorded profits.
-
-![Rating_vs_Profits](figs/Rating_V_Profit_scatter.png)
-
-**Conclusion of Hypothesis 1:** One can ses in the plot above, and also the table of correlations, that the average ratings has a weak yet positive correlation with the profit made by each movie. In the figure above, the trendline (depicted in red) show sligh increase in profits when the voting average increases.
-It might be also useful to note that in the range above 6 for the vote average, the number of outliers is visibility more imported and that there is an upwards bias. In other words, there are more movies above and far from the red trendline. A similar behaviour can be observed when the `revenue` is scatter plotted against the `vote_average`(see the plot below). A deeper analysis is needed to understand the most important metrics for the success of each movie.
-
-![Rating_vs_Revenue](figs/Rating_V_Revenue_scatter.png)
-
-
-## Hypothesis 2: The top movies in terms of ticket sales return high profits.
-
-Regarding this hypothesis, I am more optimistic to find stronger evidence of its validity. By looking at the correlation table above, one can see that the `profit`column has a stronger correlation with the `revenue` column. (The correlation metric scores 1 for maximum correlations while 0 means that the two columns are perfectly independent of each other.) In the previous example, I considered the `profit` and `vote_average` columns. This pair scored a shy 0.19. On the other hand, **Hypothesis 2** considers a different pair, i.e. the  `profit` and `revenue` columns. This pair scored higher at 0.84. 
-
-Now, I generate a scatter plot showing the populatirity and profits for each movie in the dataset.
-
-<p align="center">
-  <img alt="Popularity_V_Profit" src="figs/Popularity_V_Profit_scatter.png" width="65%">
-</p>
-
-<!-- ![Popularity_V_Profit](figs/Popularity_V_Profit_scatter.png) -->
-
-**Conclusion of Hypothesis 2:** The figure above illustrates a positive correlation between profits and the popularity of the movies. This correlation is much stronger than the one observed between the `profit` and `vote_average` columns.
-
-## Hypothesis 3: The movies with the biggest budgets tend to generate high revenue and profit.
-
-From the table of correlations, one can see that the pair of columns `profit` and `budget` scored 0.33. The pair (`budget`, `revenue`) scored 0.71. I generate two scatter plots showing the both pairs of metrics.
-
-<!-- ![Budget_V_Profit](figs/Budget_V_Profit_scatter.png) -->
-
-<p align="center">
-  <img alt="Budget_V_ProfitScatter" src="figs/Budget_V_Profit_scatter.png" width="45%">
-&nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="Budget_RevenueScatter" src="figs/Budget_V_Revenue_scatter.png" width="45%">
-</p>
-
-**Conclusion of Hypothesis 3:** The figure above illustrates a positive correlation between budget and the profit and the revenue.  
-
-## Hypothesis 4: Some genres consistently underperform.
-
-To test this hypothesis, I generate a plot showing the average profits made for each genre and for each year. There are 3 plots that show the same data but with different color codes. 
-
-- The plot on the left, has a continus color code. It spans the range between -100 million USD and +250 million USD. 
-- The plot on the right has a bichromatic color code. If the average profit value is above 0, the corresponding color is green. If the average profit value is negative (recorded loss), then the color shows as red.
-- The plot in the middle has a trichromatic color code. Basically, it is the same as the plot on the right in addition to a third case. When profits are positive and small (between 0 and 50 million USD), the color shows as grey. 
-
-
-<p align="center">
-  <img alt="Genre_V_Profit_V_Year_HeatMap" src="figs/Genre_V_Profit_V_Year_HeatMap.png" width="30%">
-&nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="Genre_V_Profit_V_Year_HeatMap_bis" src="figs/Genre_V_Profit_V_Year_HeatMap_bis.png" width="30%">
-&nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="Genre_V_Profit_V_Year_HeatMap_bis2" src="figs/Genre_V_Profit_V_Year_HeatMap_bis2.png" width="30%">
-</p>
-
-**(These are identical plots but with different color codes)**
-
-
-The genres have been ordered with respect to their average profits from 2015. This unravels an interesting pattern. 
-- The genres that are depicted in the top 1/3 of the figure tend to overperform. Between 2010 and 2015, these genres consistently recorded profits above 50 million USD.
-- The genres that are depicted in the bottom 1/3 of the figure tend to underperform. Across all the available data, with a few exceptions, these genres have been either booking losses or small profits (below 50 million USD).
-
-**Conclusion of Hypothesis 4:** The figure above shows that the performance of different movie genres fluctuates slowly over the decades of recorded data. Indeed, some genres seem to underperform the rest. 
+5.  **Quality is a Factor, but Not the Only One:** While high ratings are desirable, they don't guarantee profit. The focus should be on creating popular, marketable films that resonate with a broad audience, rather than solely chasing critical acclaim.
