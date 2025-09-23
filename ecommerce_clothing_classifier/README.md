@@ -41,24 +41,33 @@ The model's performance was assessed using three key metrics:
 The iterative development process, which involved increasing the training epochs and deepening the network architecture, resulted in a high-performing final model.
 
 **Final Model Performance:**
--   **Overall Accuracy**: [Insert Final Accuracy Here, e.g., 90.5%]
+-   **Overall Accuracy**: 90.31%
 
 **Per-Class Performance:**
 
 | Class         | Precision | Recall |
 |---------------|-----------|--------|
-| T-shirt/top   | [Value]   | [Value]|
-| Trouser       | [Value]   | [Value]|
-| Pullover      | [Value]   | [Value]|
-| Dress         | [Value]   | [Value]|
-| Coat          | [Value]   | [Value]|
-| Sandal        | [Value]   | [Value]|
-| Shirt         | [Value]   | [Value]|
-| Sneaker       | [Value]   | [Value]|
-| Bag           | [Value]   | [Value]|
-| Ankle boot    | [Value]   | [Value]|
+| T-shirt/top   | 78.60%    | 90.70% |
+| Trouser       | 99.19%    | 97.80% |
+| Pullover      | 85.02%    | 85.70% |
+| Dress         | 90.83%    | 90.10% |
+| Coat          | 83.22%    | 87.30% |
+| Sandal        | 97.60%    | 97.70% |
+| Shirt         | 78.84%    | 63.70% |
+| Sneaker       | 96.44%    | 94.80% |
+| Bag           | 98.29%    | 98.00% |
+| Ankle boot    | 95.21%    | 97.30% |
 
-*(Note: Please run the final evaluation cell in the notebook to populate the table with the latest metrics.)*
+The model performs very well on distinct categories like "Trouser," "Sandal," and "Ankle boot." However, it shows some difficulty distinguishing between similar items, such as "Shirt" and "T-shirt/top," as indicated by the lower precision and recall for the "Shirt" class.
+
+## Future Work and Improvements
+To further enhance this project and move it closer to a production-ready solution, the following steps could be taken:
+
+-   **Hyperparameter Tuning**: Systematically tune hyperparameters like learning rate, batch size, and optimizer settings to maximize performance.
+-   **Data Augmentation**: Implement data augmentation (e.g., random rotations, flips, and zooms) to improve the model's ability to generalize to new, unseen images.
+-   **Regularization**: Introduce techniques like Dropout to reduce overfitting and improve the robustness of the final model.
+-   **Error Analysis**: Conduct a deeper analysis of the confusion matrix to understand and address specific misclassifications.
+-   **Code Refactoring**: Refactor the Jupyter Notebook into a more structured Python project with separate scripts for data processing, model definition, training, and evaluation to demonstrate strong software engineering practices.
 
 ## Setup and Usage
 To replicate the project and experiment with the model:
