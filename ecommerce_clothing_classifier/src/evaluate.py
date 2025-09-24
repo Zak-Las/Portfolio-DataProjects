@@ -46,4 +46,4 @@ def evaluate_model(model, test_loader, classes):
     plt.ylabel('True Label')
     plt.show()
     
-    return accuracy, precision, recall
+    return accuracy, precision, recall, all_labels, all_preds
