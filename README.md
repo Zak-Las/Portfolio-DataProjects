@@ -55,6 +55,6 @@ If you prefer not to use the VS Code Dev Container, you can still run the enviro
 2.  Open a terminal and navigate to the root directory of the repository.
 3.  Create a virtual environment and install dependencies:
     ```bash
-    conda env create -f ../environment.yml
+    conda env create -f environment.yml
     conda activate Zak-Las
     ```
