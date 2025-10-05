@@ -6,19 +6,30 @@ def get_data_loaders(batch_size=64):
     """
     Prepares and returns the training, validation, and test DataLoaders for the FashionMNIST dataset.
     """
-    # Define a transform to normalize the data
-    transform = transforms.ToTensor()
+    # Define transforms for training (with augmentation) and for validation/testing (without)
+    train_transform = transforms.Compose([
+        transforms.RandomHorizontalFlip(),
+        transforms.RandomRotation(10),
+        transforms.ToTensor()
+    ])
+    
+    test_transform = transforms.ToTensor()
 
     # Download and load the training data
-    full_train_data = datasets.FashionMNIST(root='./data', train=True, download=True, transform=transform)
+    full_train_data = datasets.FashionMNIST(root='./data', train=True, download=True, transform=train_transform)
+    
+    # The test data should use the test_transform
+    test_data = datasets.FashionMNIST(root='./data', train=False, download=True, transform=test_transform)
 
     # Split training data into training and validation sets
     train_size = int(0.8 * len(full_train_data))
     val_size = len(full_train_data) - train_size
     train_data, val_data = random_split(full_train_data, [train_size, val_size])
 
-    # Download and load the test data
-    test_data = datasets.FashionMNIST(root='./data', train=False, download=True, transform=transform)
+    # Important: We need to ensure the validation set does not use the training transforms
+    # We can do this by creating a custom subset that applies the correct transform
+    val_data.dataset = datasets.FashionMNIST(root='./data', train=True, download=True, transform=test_transform)
+
 
     print(f"Number of training examples: {len(train_data)}")
     print(f"Number of validation examples: {len(val_data)}")
