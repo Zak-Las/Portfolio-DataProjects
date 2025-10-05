@@ -74,7 +74,16 @@ To replicate the project and experiment with the model:
 
 1.  **Clone the repository.**
 2.  **Environment**: This project is designed to run in the provided dev container, which includes all necessary dependencies like PyTorch and TorchMetrics.
-3.  **Run the Notebook**: Open and execute the `ecommerce_clothing_classifier.ipynb` notebook in a Jupyter environment (like VS Code). The notebook will guide you through the data loading, model training, evaluation, and visualization steps.
+3.  **Run the Notebook**: Open and execute the `ecommerce_clothing_classifier.ipynb` notebook in a Jupyter environment (like VS Code). The notebook will guide you through the data loading, model training, evaluation, and visualization steps. This process also saves the trained model as `fashion_mnist_cnn.pth`.
+
+### Running Inference
+After running the notebook to train and save the model, you can use the `predict.py` script to classify a single image from your terminal.
+
+Provide the path to an image using the `--image_path` argument:
+```bash
+python predict.py --image_path /path/to/your/image.png
+```
+The script will load the `fashion_mnist_cnn.pth` model and output the predicted clothing category.
 
 ## Key Skills Demonstrated
 -   **Deep Learning**: Designing, building, and training a custom CNN from scratch using PyTorch.

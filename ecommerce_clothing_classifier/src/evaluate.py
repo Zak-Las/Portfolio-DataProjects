@@ -1,7 +1,4 @@
 import torch
-import seaborn as sns
-import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
 from torchmetrics import Accuracy, Precision, Recall
 
 def evaluate_model(model, test_loader, classes):
@@ -37,13 +34,4 @@ def evaluate_model(model, test_loader, classes):
     for i, class_name in enumerate(classes):
         print(f"{class_name:<12}: Precision={precision[i]:.4f}, Recall={recall[i]:.4f}")
 
-    # Confusion Matrix
-    cm = confusion_matrix(all_labels, all_preds)
-    plt.figure(figsize=(10, 8))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=classes, yticklabels=classes)
-    plt.title('Confusion Matrix')
-    plt.xlabel('Predicted Label')
-    plt.ylabel('True Label')
-    plt.show()
-    
     return accuracy, precision, recall, all_labels, all_preds
