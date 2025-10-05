@@ -42,22 +42,19 @@ This is the easiest and most integrated way to explore the projects.
 
 ---
 
-### Option 2: Manual Setup with Docker
+### Option 2: Manual Setup with Conda
 
 If you prefer not to use the VS Code Dev Container, you can still run the environment manually.
 
-**Prerequisites:**
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-
 **Steps:**
 1.  Clone this repository to your local machine.
+    ```bash
+    git clone https://github.com/Zak-Las/Portfolio-DataProjects.git
+    cd Portfolio-DataProjects/ecommerce_clothing_classifier
+    ```
 2.  Open a terminal and navigate to the root directory of the repository.
-3.  Build the Docker image:
+3.  Create a virtual environment and install dependencies:
     ```bash
-    docker build -t zak-portfolio .
+    conda env create -f ../environment.yml
+    conda activate Zak-Las
     ```
-4.  Run the container, mapping the port and mounting the project directory:
-    ```bash
-    docker run --rm -p 8888:8888 -v "${PWD}":/workspace zak-portfolio
-    ```
-5.  You can then open the folder in VS Code and the Jupyter extension will be able to connect to the kernel in the running container, or you can access Jupyter Lab at `http://localhost:8888`.

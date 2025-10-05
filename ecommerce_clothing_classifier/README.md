@@ -1,92 +1,100 @@
-# E-Commerce Clothing Classifier with PyTorch
+# End-to-End Garment Classifier for E-Commerce
+
+![Project Banner](figures/clothing_classification.png)
 
 ## Project Overview
-This project demonstrates the end-to-end development of a deep learning image classification model for an e-commerce clothing retailer. The goal is to automatically categorize product images into 10 distinct garment types, a critical task for streamlining product listing, improving customer search experience, and enhancing inventory management.
 
-The project uses the **FashionMNIST** dataset as a proxy for real-world clothing images and leverages **PyTorch** to build, train, and evaluate a Convolutional Neural Network (CNN).
+This project showcases the development of a deep learning model to accurately classify garment images from the FashionMNIST dataset into 10 distinct categories. As a data scientist for the fictitious e-commerce retailer, "Fashion Forward," the goal was to create a robust classifier to streamline product categorization, enhance search functionality, and improve inventory management.
 
-![Clothing Classification](figures/clothing_classification.png)
+The project follows a structured, end-to-end data science workflow, including:
+- **Exploratory Data Analysis (EDA)** to understand dataset characteristics.
+- **Iterative Model Development**, starting with a baseline and systematically improving performance.
+- **Rigorous Evaluation** on a held-out test set to ensure real-world viability.
+- **Code Refactoring** into a modular structure for maintainability and scalability.
 
-## Problem Statement
-E-commerce platforms face significant challenges in organizing large and rapidly changing inventories. Manual categorization of product images is not only time-consuming and costly but also prone to human error, leading to a poor customer experience. This project addresses the need for a robust, automated solution for garment classification that can scale with a growing business.
+## Key Results
 
-## Data Exploration
-The project begins with an exploratory data analysis (EDA) of the FashionMNIST dataset, which contains 70,000 grayscale images (60,000 for training, 10,000 for testing) of 10 clothing categories. The EDA confirms that the dataset is well-balanced across all classes, providing a solid foundation for training an unbiased model.
+The final model, a `DeeperCNN`, achieved a high accuracy on the unseen test set. The training history demonstrates stable learning and good generalization from the training to the validation set.
 
-## Model Architecture
-A custom Convolutional Neural Network (CNN) was designed and implemented in PyTorch. The final architecture consists of the following layers, chosen to effectively capture hierarchical features from the images:
+| Training History | Confusion Matrix |
+| :---: | :---: |
+| *The model shows stable learning without significant overfitting.* | *The confusion matrix highlights high performance across most classes.* |
+| ![Training History](figures/training_history.png) | ![Confusion Matrix](figures/confusion_matrix.png) |
 
-1.  **Convolutional Layer 1**: 16 output channels, 3x3 kernel, ReLU activation.
-2.  **Max Pooling Layer 1**: 2x2 kernel, stride of 2.
-3.  **Convolutional Layer 2**: 32 output channels, 3x3 kernel, ReLU activation.
-4.  **Max Pooling Layer 2**: 2x2 kernel, stride of 2.
-5.  **Flatten Layer**: To transition from 2D feature maps to a 1D feature vector.
-6.  **Fully Connected (Linear) Layer**: 1568 input features and 10 output units, corresponding to the 10 clothing classes.
+## Methodology
 
-## Training and Evaluation
-The model was trained and evaluated using an iterative approach, demonstrating the impact of key deep learning techniques.
+### 1. Data Exploration and Preparation
+The project began with an Exploratory Data Analysis (EDA) of the FashionMNIST dataset. The class distribution was analyzed to ensure a balanced dataset, which is crucial for training an unbiased model. The data was then prepared for modeling, which included creating separate training, validation, and test sets.
 
-#### Training Configuration:
--   **Loss Function**: `CrossEntropyLoss`, as it is well-suited for multi-class classification problems.
--   **Optimizer**: `Adam` with a learning rate of `0.001`.
--   **Epochs**: The model was trained for **10 epochs**, which was found to provide a good balance between training time and performance improvement.
+![Class Distribution](figures/class_distribution.png)
 
-#### Evaluation Metrics:
-The model's performance was assessed using three key metrics:
--   **Accuracy**: The overall percentage of correctly classified images.
--   **Precision**: The ability of the model to avoid false positives for each class.
--   **Recall**: The ability of the model to find all relevant instances of each class.
+### 2. Iterative Modeling
+An iterative approach was used to find the optimal model architecture:
+1.  **Baseline CNN**: A simple, single-layer CNN was first trained for 5 epochs to establish a performance benchmark.
+2.  **Extended Training**: The baseline model was then trained for 15 epochs, which showed improved accuracy but also signs of plateauing performance.
+3.  **Deeper CNN**: A more complex, two-layer CNN (`DeeperCNN`) was trained for 15 epochs. This model captured more intricate features and yielded the best performance on the validation set.
 
-## Results and Performance
-The iterative development process, which involved increasing the training epochs and deepening the network architecture, resulted in a high-performing final model.
+### 3. Final Evaluation
+The `DeeperCNN` was selected as the final model and evaluated on the held-out test set. The evaluation included overall accuracy and a confusion matrix to analyze class-specific performance and identify common misclassifications.
 
-**Final Model Performance:**
--   **Overall Accuracy**: 90.31%
+## Project Structure
 
-**Per-Class Performance:**
+The project is organized into a modular structure to promote code reusability and maintainability.
 
-| Class         | Precision | Recall |
-|---------------|-----------|--------|
-| T-shirt/top   | 78.60%    | 90.70% |
-| Trouser       | 99.19%    | 97.80% |
-| Pullover      | 85.02%    | 85.70% |
-| Dress         | 90.83%    | 90.10% |
-| Coat          | 83.22%    | 87.30% |
-| Sandal        | 97.60%    | 97.70% |
-| Shirt         | 78.84%    | 63.70% |
-| Sneaker       | 96.44%    | 94.80% |
-| Bag           | 98.29%    | 98.00% |
-| Ankle boot    | 95.21%    | 97.30% |
-
-The model performs very well on distinct categories like "Trouser," "Sandal," and "Ankle boot." However, it shows some difficulty distinguishing between similar items, such as "Shirt" and "T-shirt/top," as indicated by the lower precision and recall for the "Shirt" class.
-
-## Future Work and Improvements
-To further enhance this project and move it closer to a production-ready solution, the following steps could be taken:
-
--   **Hyperparameter Tuning**: Systematically tune hyperparameters like learning rate, batch size, and optimizer settings to maximize performance.
--   **Data Augmentation**: Implement data augmentation (e.g., random rotations, flips, and zooms) to improve the model's ability to generalize to new, unseen images.
--   **Regularization**: Introduce techniques like Dropout to reduce overfitting and improve the robustness of the final model.
--   **Error Analysis**: Conduct a deeper analysis of the confusion matrix to understand and address specific misclassifications.
--   **Code Refactoring**: Refactor the Jupyter Notebook into a more structured Python project with separate scripts for data processing, model definition, training, and evaluation to demonstrate strong software engineering practices.
-
-## Setup and Usage
-To replicate the project and experiment with the model:
-
-1.  **Clone the repository.**
-2.  **Environment**: This project is designed to run in the provided dev container, which includes all necessary dependencies like PyTorch and TorchMetrics.
-3.  **Run the Notebook**: Open and execute the `ecommerce_clothing_classifier.ipynb` notebook in a Jupyter environment (like VS Code). The notebook will guide you through the data loading, model training, evaluation, and visualization steps. This process also saves the trained model as `fashion_mnist_cnn.pth`.
-
-### Running Inference
-After running the notebook to train and save the model, you can use the `predict.py` script to classify a single image from your terminal.
-
-Provide the path to an image using the `--image_path` argument:
-```bash
-python predict.py --image_path /path/to/your/image.png
 ```
-The script will load the `fashion_mnist_cnn.pth` model and output the predicted clothing category.
+ecommerce_clothing_classifier/
+│
+├── ecommerce_clothing_classifier.ipynb # Jupyter Notebook for experimentation and analysis.
+├── README.md                           # Project documentation.
+├── fashion_mnist_cnn.pth               # Saved state dictionary for the final model (not tracked by Git).
+├── predict.py                          # Script for making predictions with the trained model.
+│
+├── data/                               # Data storage (not tracked by Git).
+├── figures/                            # Saved plots and visualizations.
+│
+├── src/                                # Refactored source code.
+│   ├── data_loader.py                  # Function for loading and preparing data.
+│   ├── model.py                        # CNN model definitions (Baseline and Deeper).
+│   ├── train.py                        # Training and validation loop.
+│   └── evaluate.py                     # Final model evaluation function.
+│
+└── tests/                              # Unit tests for the source code.
+    ├── test_data_loader.py
+    ├── test_evaluate.py
+    ├── test_model.py
+    └── test_train.py
+```
 
-## Key Skills Demonstrated
--   **Deep Learning**: Designing, building, and training a custom CNN from scratch using PyTorch.
--   **Model Optimization**: Iteratively improving model performance by adjusting architecture (deeper network) and training parameters (epochs).
--   **Data Science Workflow**: Conducting exploratory data analysis, preprocessing data, and performing rigorous model evaluation.
--   **Problem Solving**: Translating a real-world business need into a data science problem and delivering a robust, automated solution.
+## How to Run
+
+To replicate the project and run the model, follow these steps:
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/Zak-Las/Portfolio-DataProjects.git
+    cd Portfolio-DataProjects/ecommerce_clothing_classifier
+    ```
+
+2.  **Create a virtual environment and install dependencies:**
+    ```bash
+    conda env create -f ../environment.yml
+    conda activate Zak-Las
+    ```
+
+3.  **Run the notebook:**
+    Open and run the `ecommerce_clothing_classifier.ipynb` notebook in a Jupyter environment to see the full analysis and model training process.
+
+4.  **Make a prediction:**
+    Use the `predict.py` script to classify a sample image using the saved model.
+    ```bash
+    python predict.py --image_path <path_to_your_image>
+    ```
+
+## Technologies Used
+
+- **Python**
+- **PyTorch**: For building and training the deep learning models.
+- **scikit-learn**: For model evaluation metrics (e.g., confusion matrix).
+- **Matplotlib & Seaborn**: For data visualization.
+- **Jupyter Notebook**: For interactive development and analysis.
+

@@ -1,6 +1,0 @@
-torch==2.1.0
-torchvision==0.16.0
-torchmetrics==1.2.0
-numpy==1.26.1
-matplotlib==3.8.1
-seaborn==0.13.0
