@@ -33,7 +33,13 @@ class DeeperCNN(nn.Module):
         self.maxpool2 = nn.MaxPool2d(kernel_size=2, stride=2)
         
         self.flatten = nn.Flatten()
-        self.fc = nn.Linear(32 * (image_size // 4) ** 2, num_classes)
+        # Add dropout to the fully connected layer
+        self.fc = nn.Sequential(
+            nn.Linear(32 * (image_size // 4) ** 2, 128),
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(128, num_classes)
+        )
         
     def forward(self, x):
         x = self.conv1(x)
