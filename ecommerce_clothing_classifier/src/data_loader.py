@@ -1,6 +1,6 @@
 import torch
 from torchvision import datasets, transforms
-from torch.utils.data import DataLoader, random_split
+from torch.utils.data import DataLoader, random_split, Subset
 
 def get_data_loaders(batch_size=64):
     """
@@ -16,7 +16,8 @@ def get_data_loaders(batch_size=64):
     test_transform = transforms.ToTensor()
 
     # Download and load the training data
-    full_train_data = datasets.FashionMNIST(root='./data', train=True, download=True, transform=train_transform)
+    # We don't apply the transform immediately, as we need to split it first
+    full_train_data = datasets.FashionMNIST(root='./data', train=True, download=True, transform=None)
     
     # The test data should use the test_transform
     test_data = datasets.FashionMNIST(root='./data', train=False, download=True, transform=test_transform)
@@ -24,12 +25,12 @@ def get_data_loaders(batch_size=64):
     # Split training data into training and validation sets
     train_size = int(0.8 * len(full_train_data))
     val_size = len(full_train_data) - train_size
+    # random_split returns Subset objects
     train_data, val_data = random_split(full_train_data, [train_size, val_size])
 
-    # Important: We need to ensure the validation set does not use the training transforms
-    # We can do this by creating a custom subset that applies the correct transform
-    val_data.dataset = datasets.FashionMNIST(root='./data', train=True, download=True, transform=test_transform)
-
+    # Apply the correct transforms to the training and validation subsets
+    train_data.dataset.transform = train_transform
+    val_data.dataset.transform = test_transform
 
     print(f"Number of training examples: {len(train_data)}")
     print(f"Number of validation examples: {len(val_data)}")

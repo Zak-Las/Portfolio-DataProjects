@@ -29,3 +29,10 @@ credentials.json
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Models
+*.pth
+fashion_mnist_cnn.pth
+
+# Figures
+figures/
