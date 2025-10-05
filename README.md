@@ -6,21 +6,27 @@ Welcome to my portfolio of data science projects. This repository showcases my s
 
 Here's a summary of the projects you'll find in this repository, with machine learning projects listed first to highlight my skills in this area:
 
--   **[E-Commerce Clothing Classifier (PyTorch)](./ecommerce_clothing_classifier/)**: A deep learning project that builds a Convolutional Neural Network (CNN) from scratch to classify garment images from the FashionMNIST dataset.
+-   **[E-Commerce Clothing Classifier (PyTorch)](./ecommerce_clothing_classifier/)**: Built a CNN from scratch to classify garment images, achieving over 90% accuracy on the test set.
+    -   *Tech: PyTorch, scikit-learn*
 
--   **[Insurance Claim Prediction (Regression Modeling)](./insurance_claim_prediction/)**: A machine learning project where I build and compare regression models using `statsmodels` and `scikit-learn` to predict insurance claims.
+-   **[Taxi Route Optimization (Reinforcement Learning)](./taxi_route_optimization/)**: Implemented a Q-learning agent to solve the "Taxi-v3" problem, showcasing reinforcement learning concepts.
+    -   *Tech: Gymnasium, Q-learning*
 
--   **[Taxi Route Optimization (Reinforcement Learning)](./taxi_route_optimization/)**: A reinforcement learning project that trains an agent to solve the "Taxi-v3" problem from the `gymnasium` library. This project demonstrates the use of Q-learning to find an optimal route in a simulated environment.
+-   **[Insurance Claim Prediction (Regression Modeling)](./insurance_claim_prediction/)**: Compared regression models to predict insurance claims, demonstrating proficiency in both statistical and machine learning approaches.
+    -   *Tech: statsmodels, scikit-learn*
 
--   **[Movie Industry Analysis (Python)](./movie_industry_analysis/)**: An in-depth exploratory data analysis of an IMDb movie dataset. This project involves data cleaning, visualization, and uncovering insights into the factors that drive movie success.
+-   **[Movie Industry Analysis (Python)](./movie_industry_analysis/)**: Conducted an in-depth EDA on an IMDb dataset to uncover factors driving movie success, from budget to genre.
+    -   *Tech: Pandas, Matplotlib, Seaborn*
 
--   **[World Life Expectancy (PostgreSQL)](./world_life_expectancy_sql/)**: A SQL-based project focused on data cleaning and exploratory analysis of global life expectancy data.
+-   **[World Life Expectancy (PostgreSQL)](./world_life_expectancy_sql/)**: Performed data cleaning and exploratory analysis on a global life expectancy dataset.
+    -   *Tech: PostgreSQL*
 
--   **[Automated Data Cleaning (MySQL)](./automated_data_cleaning_sql/)**: Demonstrates the use of Stored Procedures, Triggers, and Events in MySQL to create an automated data cleaning pipeline for household income data.
+-   **[Automated Data Cleaning (MySQL)](./automated_data_cleaning_sql/)**: Developed an automated data cleaning pipeline using advanced database features.
+    -   *Tech: MySQL, Stored Procedures, Triggers, Events*
 
 ## Getting Started
 
-This entire portfolio is containerized, allowing for a fully reproducible environment. You can explore the projects using either VS Code Dev Containers (recommended for the best experience) or by manually building and running the Docker image.
+This entire portfolio is containerized, allowing for a fully reproducible environment. You can explore the projects using either VS Code Dev Containers (recommended for the best experience) or by manually creating a Conda enviroment.
 
 ---
 
@@ -47,14 +53,14 @@ This is the easiest and most integrated way to explore the projects.
 If you prefer not to use the VS Code Dev Container, you can still run the environment manually.
 
 **Steps:**
-1.  Clone this repository to your local machine.
+1.  Clone this repository to your local machine and navigate into the directory:
     ```bash
     git clone https://github.com/Zak-Las/Portfolio-DataProjects.git
-    cd Portfolio-DataProjects/ecommerce_clothing_classifier
+    cd Portfolio-DataProjects
     ```
-2.  Open a terminal and navigate to the root directory of the repository.
-3.  Create a virtual environment and install dependencies:
+2.  Create and activate the Conda environment using the `environment.yml` file:
     ```bash
     conda env create -f environment.yml
     conda activate Zak-Las
     ```
+3. Once the environment is active, you can run any of the notebooks or scripts.
