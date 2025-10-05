@@ -32,7 +32,7 @@ The project began with an Exploratory Data Analysis (EDA) of the FashionMNIST da
 An iterative approach was used to find the optimal model architecture:
 1.  **Baseline CNN**: A simple, single-layer CNN was first trained for 5 epochs to establish a performance benchmark.
 2.  **Extended Training**: The baseline model was then trained for 15 epochs, which showed improved accuracy but also signs of plateauing performance.
-3.  **Deeper CNN**: A more complex, two-layer CNN (`DeeperCNN`) was trained for 15 epochs. This model captured more intricate features and yielded the best performance on the validation set.
+3.  **Deeper CNN with Dropout**: A more complex, two-layer CNN (`DeeperCNN`) was trained for 15 epochs. This model includes a **Dropout layer** for regularization to prevent overfitting. It captured more intricate features and yielded the best performance on the validation set.
 
 ### 3. Final Evaluation
 The `DeeperCNN` was selected as the final model and evaluated on the held-out test set. The evaluation included overall accuracy and a confusion matrix to analyze class-specific performance and identify common misclassifications.
