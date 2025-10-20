@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 from torchmetrics import Accuracy
-import matplotlib.pyplot as plt
 
 def train_and_validate(model, optimizer, criterion, num_epochs, train_loader, val_loader, num_classes):
     history = {
@@ -59,26 +58,3 @@ def train_and_validate(model, optimizer, criterion, num_epochs, train_loader, va
               f"Val Loss: {epoch_val_loss:.4f}, Val Acc: {epoch_val_acc:.4f}")
         
     return history
-
-def plot_history(history, save_path=None):
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))
-    
-    ax1.plot(history['train_loss'], label='Train Loss')
-    ax1.plot(history['val_loss'], label='Validation Loss')
-    ax1.set_title('Loss Over Epochs')
-    ax1.set_xlabel('Epoch')
-    ax1.set_ylabel('Loss')
-    ax1.legend()
-    
-    ax2.plot(history['train_acc'], label='Train Accuracy')
-    ax2.plot(history['val_acc'], label='Validation Accuracy')
-    ax2.set_title('Accuracy Over Epochs')
-    ax2.set_xlabel('Epoch')
-    ax2.set_ylabel('Accuracy')
-    ax2.legend()
-    
-    if save_path:
-        plt.savefig(save_path)
-        print(f"Plot saved to {save_path}")
-        
-    plt.show()
