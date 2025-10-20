@@ -60,7 +60,7 @@ def train_and_validate(model, optimizer, criterion, num_epochs, train_loader, va
         
     return history
 
-def plot_history(history):
+def plot_history(history, save_path=None):
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))
     
     ax1.plot(history['train_loss'], label='Train Loss')
@@ -77,4 +77,8 @@ def plot_history(history):
     ax2.set_ylabel('Accuracy')
     ax2.legend()
     
+    if save_path:
+        plt.savefig(save_path)
+        print(f"Plot saved to {save_path}")
+        
     plt.show()
