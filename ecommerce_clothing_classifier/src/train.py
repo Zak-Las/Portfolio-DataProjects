@@ -2,13 +2,14 @@ import torch
 import torch.nn as nn
 from torchmetrics import Accuracy
 
-def train_and_validate(model, optimizer, criterion, num_epochs, train_loader, val_loader, num_classes):
+def train_and_validate(model, optimizer, criterion, num_epochs, train_loader, val_loader, num_classes, device):
+    model.to(device)
     history = {
         'train_loss': [], 'train_acc': [],
         'val_loss': [], 'val_acc': []
     }
     
-    accuracy_metric = Accuracy(task='multiclass', num_classes=num_classes)
+    accuracy_metric = Accuracy(task='multiclass', num_classes=num_classes).to(device)
 
     for epoch in range(num_epochs):
         # Training phase
@@ -17,6 +18,7 @@ def train_and_validate(model, optimizer, criterion, num_epochs, train_loader, va
         train_correct = 0
         train_total = 0
         for features, labels in train_loader:
+            features, labels = features.to(device), labels.to(device)
             optimizer.zero_grad()
             outputs = model(features)
             loss = criterion(outputs, labels)
@@ -35,6 +37,7 @@ def train_and_validate(model, optimizer, criterion, num_epochs, train_loader, va
         val_total = 0
         with torch.no_grad():
             for features, labels in val_loader:
+                features, labels = features.to(device), labels.to(device)
                 outputs = model(features)
                 loss = criterion(outputs, labels)
                 running_val_loss += loss.item() * features.size(0)
