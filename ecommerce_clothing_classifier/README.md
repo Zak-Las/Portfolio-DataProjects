@@ -6,7 +6,7 @@
 
 As a data scientist for the e-commerce retailer **Fashion Forward**, I was tasked with developing a deep learning model to accurately classify garment images into 10 distinct categories. This automated classification system is crucial for streamlining product listings, enhancing customer search, and optimizing inventory management.
 
-This project demonstrates a complete data science workflow, from initial data exploration and baseline modeling to iterative experimentation and final model evaluation. The final model, a Convolutional Neural Network (CNN) trained with advanced techniques, achieves **91.6% accuracy** on the test set.
+This project demonstrates a complete data science workflow, from initial data exploration and baseline modeling to iterative experimentation and final model evaluation. The final model, a Convolutional Neural Network (CNN) trained with advanced techniques, achieves **90.9% accuracy** on the test set.
 
 ## Dataset
 
@@ -52,7 +52,7 @@ The chart below shows the final test accuracy for all models, clearly highlighti
 
 The final model was evaluated on the held-out test set, providing an unbiased measure of its real-world performance.
 
-- **Overall Accuracy**: **91.6%**
+- **Overall Accuracy**: **90.9%**
 
 The confusion matrix below visualizes the model's predictions. It shows high accuracy across most classes, particularly for items with distinct silhouettes like **Trouser**, **Sandal**, and **Ankle boot**. The most common misclassifications occur between similar-looking items, such as **Shirt** and **T-shirt/top**.
 
