@@ -24,11 +24,13 @@ class DeeperCNN(nn.Module):
         super(DeeperCNN, self).__init__()
         # First convolutional block
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=16, kernel_size=3, stride=1, padding=1)
+        self.bn1 = nn.BatchNorm2d(16)
         self.elu1 = nn.ELU()
         self.maxpool1 = nn.MaxPool2d(kernel_size=2, stride=2)
         
         # Second convolutional block
         self.conv2 = nn.Conv2d(in_channels=16, out_channels=32, kernel_size=3, stride=1, padding=1)
+        self.bn2 = nn.BatchNorm2d(32)
         self.elu2 = nn.ELU()
         self.maxpool2 = nn.MaxPool2d(kernel_size=2, stride=2)
         
@@ -43,9 +45,11 @@ class DeeperCNN(nn.Module):
         
     def forward(self, x):
         x = self.conv1(x)
+        x = self.bn1(x)
         x = self.elu1(x)
         x = self.maxpool1(x)
         x = self.conv2(x)
+        x = self.bn2(x)
         x = self.elu2(x)
         x = self.maxpool2(x)
         x = self.flatten(x)
