@@ -124,7 +124,8 @@ ecommerce_clothing_classifier/
 ## Key Technologies
 
 -   **PyTorch**: Core deep learning framework for model creation and training.
--   **Scikit-learn**: Used for performance evaluation metrics (confusion matrix, precision, recall).
+-   **TorchMetrics**: For calculating performance metrics (Accuracy, Precision, Recall).
+-   **Scikit-learn**: Used for generating the confusion matrix visualization.
 -   **Pandas**: For data manipulation and analysis.
 -   **Matplotlib & Seaborn**: For data visualization and plotting results.
 -   **Jupyter Notebook**: For interactive development and documenting the workflow.
