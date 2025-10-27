@@ -2,11 +2,12 @@ import torch
 import torch.nn as nn
 from torchmetrics import Accuracy
 
-def train_and_validate(model, optimizer, criterion, num_epochs, train_loader, val_loader, num_classes, device):
+def train_and_validate(model, optimizer, criterion, num_epochs, train_loader, val_loader, num_classes, device, scheduler=None):
     model.to(device)
     history = {
         'train_loss': [], 'train_acc': [],
-        'val_loss': [], 'val_acc': []
+        'val_loss': [], 'val_acc': [],
+        'lr': []
     }
     
     accuracy_metric = Accuracy(task='multiclass', num_classes=num_classes).to(device)
@@ -56,8 +57,20 @@ def train_and_validate(model, optimizer, criterion, num_epochs, train_loader, va
         history['val_loss'].append(epoch_val_loss)
         history['val_acc'].append(epoch_val_acc)
         
+        # Get current learning rate and append to history
+        current_lr = optimizer.param_groups[0]['lr']
+        history['lr'].append(current_lr)
+        
         print(f"Epoch {epoch+1}/{num_epochs} | "
               f"Train Loss: {epoch_train_loss:.4f}, Train Acc: {epoch_train_acc:.4f} | "
-              f"Val Loss: {epoch_val_loss:.4f}, Val Acc: {epoch_val_acc:.4f}")
+              f"Val Loss: {epoch_val_loss:.4f}, Val Acc: {epoch_val_acc:.4f} | "
+              f"LR: {current_lr:.8f}")
+
+        # Step the scheduler
+        if scheduler:
+            if isinstance(scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):
+                scheduler.step(epoch_val_loss)
+            else:
+                scheduler.step()
         
     return history

@@ -56,35 +56,50 @@ def show_random_samples(loader, loader_name, classes):
 
 def plot_history(history, save_path=None):
     """
-    Plots the training and validation loss and accuracy from the history dictionary.
+    Plots the training and validation history of a model, including loss,
+    accuracy, and learning rate.
+
+    This function creates a figure with three subplots:
+    1. Loss vs. Epochs (Training and Validation)
+    2. Accuracy vs. Epochs (Training and Validation)
+    3. Learning Rate vs. Epochs
 
     Args:
-        history (dict): A dictionary containing the training history. 
-                        It is the output of the `train_and_validate` function 
-                        in `train.py` and is expected to have the following structure:
-                        {
-                            'train_loss': [...],
-                            'train_acc': [...],
-                            'val_loss': [...],
-                            'val_acc': [...]
-                        }
-        save_path (str, optional): If provided, the plot will be saved to this path.
+        history (dict): A dictionary containing the training history.
+                        Expected keys are 'train_loss', 'val_loss',
+                        'train_acc', 'val_acc', and 'lr'.
+        save_path (str, optional): If provided, the plot will be saved to
+                                   this file path. Defaults to None.
     """
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))
+    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(12, 18))
     
+    # Plot 1: Loss
     ax1.plot(history['train_loss'], label='Train Loss')
     ax1.plot(history['val_loss'], label='Validation Loss')
-    ax1.set_title('Loss Over Epochs')
-    ax1.set_xlabel('Epoch')
+    ax1.set_title('Loss vs. Epochs')
+    ax1.set_xlabel('Epochs')
     ax1.set_ylabel('Loss')
     ax1.legend()
-    
+    ax1.grid(True)
+
+    # Plot 2: Accuracy
     ax2.plot(history['train_acc'], label='Train Accuracy')
     ax2.plot(history['val_acc'], label='Validation Accuracy')
-    ax2.set_title('Accuracy Over Epochs')
-    ax2.set_xlabel('Epoch')
+    ax2.set_title('Accuracy vs. Epochs')
+    ax2.set_xlabel('Epochs')
     ax2.set_ylabel('Accuracy')
     ax2.legend()
+    ax2.grid(True)
+
+    # Plot 3: Learning Rate
+    ax3.plot(history['lr'], label='Learning Rate', color='orange')
+    ax3.set_title('Learning Rate vs. Epochs')
+    ax3.set_xlabel('Epochs')
+    ax3.set_ylabel('Learning Rate')
+    ax3.legend()
+    ax3.grid(True)
+
+    plt.tight_layout()
     
     if save_path:
         plt.savefig(save_path)
