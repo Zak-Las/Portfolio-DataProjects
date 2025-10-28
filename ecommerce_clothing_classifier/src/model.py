@@ -95,3 +95,47 @@ class AdvancedCNN(nn.Module):
         x = self.block3(x)
         x = self.classifier(x)
         return x
+
+# Wider Advanced CNN for Experiment 11
+class WiderAdvancedCNN(nn.Module):
+    def __init__(self, num_classes, image_size=28):
+        super(WiderAdvancedCNN, self).__init__()
+        
+        # Block 1: 64 output channels
+        self.block1 = nn.Sequential(
+            nn.Conv2d(in_channels=1, out_channels=64, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Dropout(0.25)
+        )
+        
+        # Block 2: 128 output channels
+        self.block2 = nn.Sequential(
+            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Dropout(0.25)
+        )
+        
+        # Block 3: 256 output channels
+        self.block3 = nn.Sequential(
+            nn.Conv2d(in_channels=128, out_channels=256, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.Dropout(0.4)
+        )
+        
+        # Classifier with updated input size
+        self.classifier = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(256 * (image_size // 4) * (image_size // 4), 128),
+            nn.ReLU(),
+            nn.Dropout(0.3),
+            nn.Linear(128, num_classes)
+        )
+
+    def forward(self, x):
+        x = self.block1(x)
+        x = self.block2(x)
+        x = self.block3(x)
+        x = self.classifier(x)
+        return x
