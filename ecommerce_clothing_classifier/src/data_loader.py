@@ -2,14 +2,15 @@ import torch
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader, random_split, Subset
 
-def get_data_loaders(batch_size=64):
+def get_data_loaders(batch_size=128):
     """
     Prepares and returns the training, validation, and test DataLoaders for the FashionMNIST dataset.
     """
     # Define transforms for training (with augmentation) and for validation/testing (without)
     train_transform = transforms.Compose([
         transforms.RandomHorizontalFlip(),
-        transforms.RandomRotation(20),  # Reduced rotation to be more realistic for clothing
+        # Consolidate rotation and translation into a single affine transformation
+        transforms.RandomAffine(degrees=10, translate=(0.1, 0.1)),
         transforms.RandomAutocontrast(),
         transforms.ToTensor(),
         transforms.Normalize((0.5,), (0.5,)) # Normalize for better performance
