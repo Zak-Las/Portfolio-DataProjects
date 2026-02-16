@@ -1,6 +1,6 @@
 # Data Science Project Portfolio
 
-Welcome to my portfolio of data science projects. This repository showcases my skills in data cleaning, exploratory data analysis, machine learning, and data engineering using Python, SQL, and various data science libraries.
+This repository showcases my skills in using Python, SQL, PyTorch, and scikit-learn.
 
 ## Projects
 
@@ -9,14 +9,8 @@ Here's a summary of the projects you'll find in this repository, with machine le
 -   **[E-Commerce Clothing Classifier (PyTorch)](./ecommerce_clothing_classifier/)**: Built a CNN from scratch to classify garment images, achieving over 90% accuracy on the test set.
     -   *Tech: PyTorch, scikit-learn*
 
--   **[Taxi Route Optimization (Reinforcement Learning)](./taxi_route_optimization/)**: Implemented a Q-learning agent to solve the "Taxi-v3" problem, showcasing reinforcement learning concepts.
-    -   *Tech: Gymnasium, Q-learning*
-
 -   **[Insurance Claim Prediction (Regression Modeling)](./insurance_claim_prediction/)**: Compared regression models to predict insurance claims, demonstrating proficiency in both statistical and machine learning approaches.
     -   *Tech: statsmodels, scikit-learn*
-
--   **[Movie Industry Analysis (Python)](./movie_industry_analysis/)**: Conducted an in-depth EDA on an IMDb dataset to uncover factors driving movie success, from budget to genre.
-    -   *Tech: Pandas, Matplotlib, Seaborn*
 
 -   **[World Life Expectancy (PostgreSQL)](./world_life_expectancy_sql/)**: Performed data cleaning and exploratory analysis on a global life expectancy dataset.
     -   *Tech: PostgreSQL*
