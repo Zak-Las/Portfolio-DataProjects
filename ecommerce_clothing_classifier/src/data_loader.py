@@ -2,43 +2,53 @@ import torch
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader, random_split, Subset
 
-def get_data_loaders(batch_size=64):
+def get_data_loaders(batch_size=512):
     """
     Prepares and returns the training, validation, and test DataLoaders for the FashionMNIST dataset.
     """
     # Define transforms for training (with augmentation) and for validation/testing (without)
     train_transform = transforms.Compose([
-        transforms.RandomHorizontalFlip(),
-        transforms.RandomRotation(10),
-        transforms.ToTensor()
+        # transforms.RandomHorizontalFlip(),
+        # Consolidate rotation and translation into a single affine transformation
+        transforms.RandomAffine(degrees=7.5, translate=(0.075, 0.075), scale=(0.915, 1.085)),
+        # transforms.RandomAutocontrast(),
+        transforms.ToTensor(),
     ])
     
-    test_transform = transforms.ToTensor()
+    test_transform = transforms.Compose([
+        transforms.ToTensor(),
+    ])
 
-    # Download and load the training data
-    # We don't apply the transform immediately, as we need to split it first
-    full_train_data = datasets.FashionMNIST(root='./data', train=True, download=True, transform=None)
+    # Create separate datasets for training and validation with their respective transforms
+    train_data = datasets.FashionMNIST(root='./data', train=True, download=True, transform=train_transform)
+    val_data = datasets.FashionMNIST(root='./data', train=True, download=True, transform=test_transform)
     
     # The test data should use the test_transform
     test_data = datasets.FashionMNIST(root='./data', train=False, download=True, transform=test_transform)
 
-    # Split training data into training and validation sets
-    train_size = int(0.8 * len(full_train_data))
-    val_size = len(full_train_data) - train_size
-    # random_split returns Subset objects
-    train_data, val_data = random_split(full_train_data, [train_size, val_size])
+    # Get indices for splitting the training data
+    train_size = int(0.8 * len(train_data))
+    val_size = len(train_data) - train_size
+    
+    # Use a generator for reproducibility of the split
+    generator = torch.Generator().manual_seed(42)
+    indices = torch.randperm(len(train_data), generator=generator).tolist()
+    
+    # Create subsets based on the indices
+    train_subset = Subset(train_data, indices[:train_size])
+    val_subset = Subset(val_data, indices[train_size:])
 
-    # Apply the correct transforms to the training and validation subsets
-    train_data.dataset.transform = train_transform
-    val_data.dataset.transform = test_transform
-
-    print(f"Number of training examples: {len(train_data)}")
-    print(f"Number of validation examples: {len(val_data)}")
+    print(f"Number of training examples: {len(train_subset)}")
+    print(f"Number of validation examples: {len(val_subset)}")
     print(f"Number of testing examples: {len(test_data)}")
 
     # Create DataLoaders
-    train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
-    val_loader = DataLoader(val_data, batch_size=batch_size, shuffle=False)
+    train_loader = DataLoader(train_subset, batch_size=batch_size, shuffle=True)
+    val_loader = DataLoader(val_subset, batch_size=batch_size, shuffle=False)
     test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=False)
     
-    return train_loader, val_loader, test_loader, full_train_data.classes
+    # Get classes from the original dataset object
+    classes = train_data.classes
+    
+    return train_loader, val_loader, test_loader, classes
+

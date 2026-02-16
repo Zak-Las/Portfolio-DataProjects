@@ -1,15 +1,16 @@
 import torch
 import torch.nn as nn
 from torchmetrics import Accuracy
-import matplotlib.pyplot as plt
 
-def train_and_validate(model, optimizer, criterion, num_epochs, train_loader, val_loader, num_classes):
+def train_and_validate(model, optimizer, criterion, num_epochs, train_loader, val_loader, num_classes, device, scheduler=None):
+    model.to(device)
     history = {
         'train_loss': [], 'train_acc': [],
-        'val_loss': [], 'val_acc': []
+        'val_loss': [], 'val_acc': [],
+        'lr': []
     }
     
-    accuracy_metric = Accuracy(task='multiclass', num_classes=num_classes)
+    accuracy_metric = Accuracy(task='multiclass', num_classes=num_classes).to(device)
 
     for epoch in range(num_epochs):
         # Training phase
@@ -18,6 +19,7 @@ def train_and_validate(model, optimizer, criterion, num_epochs, train_loader, va
         train_correct = 0
         train_total = 0
         for features, labels in train_loader:
+            features, labels = features.to(device), labels.to(device)
             optimizer.zero_grad()
             outputs = model(features)
             loss = criterion(outputs, labels)
@@ -36,6 +38,7 @@ def train_and_validate(model, optimizer, criterion, num_epochs, train_loader, va
         val_total = 0
         with torch.no_grad():
             for features, labels in val_loader:
+                features, labels = features.to(device), labels.to(device)
                 outputs = model(features)
                 loss = criterion(outputs, labels)
                 running_val_loss += loss.item() * features.size(0)
@@ -54,27 +57,20 @@ def train_and_validate(model, optimizer, criterion, num_epochs, train_loader, va
         history['val_loss'].append(epoch_val_loss)
         history['val_acc'].append(epoch_val_acc)
         
+        # Get current learning rate and append to history
+        current_lr = optimizer.param_groups[0]['lr']
+        history['lr'].append(current_lr)
+        
         print(f"Epoch {epoch+1}/{num_epochs} | "
               f"Train Loss: {epoch_train_loss:.4f}, Train Acc: {epoch_train_acc:.4f} | "
-              f"Val Loss: {epoch_val_loss:.4f}, Val Acc: {epoch_val_acc:.4f}")
+              f"Val Loss: {epoch_val_loss:.4f}, Val Acc: {epoch_val_acc:.4f} | "
+              f"LR: {current_lr:.8f}")
+
+        # Step the scheduler
+        if scheduler:
+            if isinstance(scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):
+                scheduler.step(epoch_val_loss)
+            else:
+                scheduler.step()
         
     return history
-
-def plot_history(history):
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))
-    
-    ax1.plot(history['train_loss'], label='Train Loss')
-    ax1.plot(history['val_loss'], label='Validation Loss')
-    ax1.set_title('Loss Over Epochs')
-    ax1.set_xlabel('Epoch')
-    ax1.set_ylabel('Loss')
-    ax1.legend()
-    
-    ax2.plot(history['train_acc'], label='Train Accuracy')
-    ax2.plot(history['val_acc'], label='Validation Accuracy')
-    ax2.set_title('Accuracy Over Epochs')
-    ax2.set_xlabel('Epoch')
-    ax2.set_ylabel('Accuracy')
-    ax2.legend()
-    
-    plt.show()

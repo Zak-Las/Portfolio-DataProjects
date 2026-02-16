@@ -1,18 +1,20 @@
 import torch
 from torchmetrics import Accuracy, Precision, Recall
 
-def evaluate_model(model, test_loader, classes):
+def evaluate_model(model, test_loader, classes, device):
+    model.to(device)
     model.eval()
     
-    accuracy_metric = Accuracy(task='multiclass', num_classes=len(classes))
-    precision_metric = Precision(task='multiclass', num_classes=len(classes), average=None)
-    recall_metric = Recall(task='multiclass', num_classes=len(classes), average=None)
+    accuracy_metric = Accuracy(task='multiclass', num_classes=len(classes)).to(device)
+    precision_metric = Precision(task='multiclass', num_classes=len(classes), average=None).to(device)
+    recall_metric = Recall(task='multiclass', num_classes=len(classes), average=None).to(device)
     
     all_preds = []
     all_labels = []
 
     with torch.no_grad():
         for features, labels in test_loader:
+            features, labels = features.to(device), labels.to(device)
             outputs = model(features)
             _, preds = torch.max(outputs, 1)
             

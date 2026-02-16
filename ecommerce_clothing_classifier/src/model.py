@@ -24,30 +24,118 @@ class DeeperCNN(nn.Module):
         super(DeeperCNN, self).__init__()
         # First convolutional block
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=16, kernel_size=3, stride=1, padding=1)
-        self.relu1 = nn.ReLU()
+        self.bn1 = nn.BatchNorm2d(16)
+        self.elu1 = nn.ELU()
         self.maxpool1 = nn.MaxPool2d(kernel_size=2, stride=2)
         
         # Second convolutional block
         self.conv2 = nn.Conv2d(in_channels=16, out_channels=32, kernel_size=3, stride=1, padding=1)
-        self.relu2 = nn.ReLU()
+        self.bn2 = nn.BatchNorm2d(32)
+        self.elu2 = nn.ELU()
         self.maxpool2 = nn.MaxPool2d(kernel_size=2, stride=2)
         
         self.flatten = nn.Flatten()
         # Add dropout to the fully connected layer
         self.fc = nn.Sequential(
             nn.Linear(32 * (image_size // 4) ** 2, 128),
-            nn.ReLU(),
+            nn.ELU(),
             nn.Dropout(0.5),
             nn.Linear(128, num_classes)
         )
         
     def forward(self, x):
         x = self.conv1(x)
-        x = self.relu1(x)
+        x = self.bn1(x)
+        x = self.elu1(x)
         x = self.maxpool1(x)
         x = self.conv2(x)
-        x = self.relu2(x)
+        x = self.bn2(x)
+        x = self.elu2(x)
         x = self.maxpool2(x)
         x = self.flatten(x)
         x = self.fc(x)
+        return x
+
+# Advanced CNN
+class AdvancedCNN(nn.Module):
+    def __init__(self, num_classes, image_size=28):
+        super(AdvancedCNN, self).__init__()
+        
+        self.block1 = nn.Sequential(
+            nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Dropout(0.25)
+        )
+        
+        self.block2 = nn.Sequential(
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Dropout(0.25)
+        )
+        
+        self.block3 = nn.Sequential(
+            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.Dropout(0.4)
+        )
+        
+        self.classifier = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(128 * (image_size // 4) * (image_size // 4), 128),
+            nn.ReLU(),
+            nn.Dropout(0.3),
+            nn.Linear(128, num_classes)
+        )
+
+    def forward(self, x):
+        x = self.block1(x)
+        x = self.block2(x)
+        x = self.block3(x)
+        x = self.classifier(x)
+        return x
+
+# Wider Advanced CNN for Experiment 11
+class WiderAdvancedCNN(nn.Module):
+    def __init__(self, num_classes, image_size=28):
+        super(WiderAdvancedCNN, self).__init__()
+        
+        # Block 1: 64 output channels
+        self.block1 = nn.Sequential(
+            nn.Conv2d(in_channels=1, out_channels=64, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Dropout(0.25)
+        )
+        
+        # Block 2: 128 output channels
+        self.block2 = nn.Sequential(
+            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Dropout(0.25)
+        )
+        
+        # Block 3: 256 output channels
+        self.block3 = nn.Sequential(
+            nn.Conv2d(in_channels=128, out_channels=256, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.Dropout(0.4)
+        )
+        
+        # Classifier with updated input size
+        self.classifier = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(256 * (image_size // 4) * (image_size // 4), 128),
+            nn.ReLU(),
+            nn.Dropout(0.3),
+            nn.Linear(128, num_classes)
+        )
+
+    def forward(self, x):
+        x = self.block1(x)
+        x = self.block2(x)
+        x = self.block3(x)
+        x = self.classifier(x)
         return x
