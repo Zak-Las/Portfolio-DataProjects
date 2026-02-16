@@ -1,4 +1,4 @@
-# Data Science Project Portfolio
+## The goal of this Repository
 
 This repository showcases my skills in using Python, SQL, PyTorch, and scikit-learn.
 
